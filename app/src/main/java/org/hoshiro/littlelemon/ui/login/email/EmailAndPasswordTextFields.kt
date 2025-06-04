@@ -54,7 +54,7 @@ fun ValidatingInputEmailTextField(
 
 @Composable
 fun PasswordTextField(
-        showPassword: Boolean,
+    showPassword: Boolean,
     updateState: (String) -> TextFieldState,
     toShowPassword: (Boolean) -> Unit,
     ) {

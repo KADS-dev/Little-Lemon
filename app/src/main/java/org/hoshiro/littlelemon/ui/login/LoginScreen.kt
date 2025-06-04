@@ -47,13 +47,13 @@ fun LoginScreen (
     val context = LocalContext.current
 
     LaunchedEffect(true) {
-        loginViewModel.isLogged()
+        loginViewModel.isLogged(onNavigateToHome)
     }
 
     Column(modifier = modifier.fillMaxSize()) {
         Box(modifier.background(Color.Yellow).fillMaxWidth().weight(10f))
 
-        EmailForm(loginViewModel)
+        EmailForm(loginViewModel, onNavigateToHome = onNavigateToHome)
 
         Spacer(Modifier.weight(1f))
     }
@@ -63,7 +63,8 @@ fun LoginScreen (
 @Composable
 fun EmailForm(
     loginViewModel: LoginViewModel,
-    emailViewModel: EmailViewModel = viewModel<EmailViewModel>()
+    emailViewModel: EmailViewModel = viewModel<EmailViewModel>(),
+    onNavigateToHome: () -> Unit,
 ){
     val buttonActivate: Boolean by emailViewModel.formComplete.collectAsState()
 
@@ -84,7 +85,14 @@ fun EmailForm(
 
         Button(
             modifier = Modifier.padding(end=6.dp).align(Alignment.End),
-            onClick = {loginViewModel.onLoginWithEmail()},
+            onClick = {
+                loginViewModel.onLoginWithEmail(
+                    emailText = emailViewModel.email.toString(),
+                    passwordText = emailViewModel.password.value.toString(),
+                    navigateToDetail = onNavigateToHome,
+                    )
+
+                      },
             enabled = buttonActivate
         ) { Text("Enter") }
     }

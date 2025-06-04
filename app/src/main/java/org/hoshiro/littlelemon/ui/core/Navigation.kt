@@ -49,7 +49,7 @@ fun ContentWrapper(
                 onNavigateToUserConfiguration = {
 
                     navigationController.navigate(route = Routes.UserConfigurationScreen){
-                        popUpTo(Routes.HomeScreen){ inclusive = true }
+                        //popUpTo(Routes.HomeScreen){ inclusive = true }
                     }
 
                 },
@@ -68,6 +68,7 @@ fun ContentWrapper(
                 onNavigateToHome = {
                     navigationController.navigate(Routes.HomeScreen){
                         popUpTo(route = Routes.UserConfigurationScreen){ inclusive = true }
+                        //launchSingleTop = true
                     }
                 },
             )

@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.net.Credentials
 import android.util.Log
+import androidx.activity.result.launch
 import androidx.compose.material3.TimePicker
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.credentials.GetCredentialRequest
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
 
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
@@ -87,17 +91,29 @@ class AuthService @Inject constructor(private val firebaseAuth: FirebaseAuth) {
 //    suspend fun completeRegisterWithPhoneVerification(credentials: PhoneAuthCredential) =
 //        completeRegisterWithCredential(credentials)
 
+//
+//    fun registerUser(email: String, password: String) {
+//        viewModelScope.launch {
+//
+//        }
+//    }
+
 
     suspend fun register(emailText: String, passwordText: String): FirebaseUser?{
         return suspendCancellableCoroutine {  cancellableContinuation ->
-            firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
-                .addOnSuccessListener {
-                    val user: FirebaseUser? = it.user
-                    cancellableContinuation.resume(user)
-                }
-                .addOnFailureListener{
-                    cancellableContinuation.resumeWithException(it)
-                }
+
+                firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
+                    .addOnSuccessListener {
+                        val user: FirebaseUser? = it.user
+                        cancellableContinuation.resume(user)
+                    }
+                    .addOnFailureListener{
+                        Log.i("ERROR", "firebaseAuth.register: " + it.message.toString() )
+                        //cancellableContinuation.resumeWithException(it)
+                        //cancellableContinuation.resume (user)
+                        cancellableContinuation.resume (null)
+                    }
+
         }
 
     }
@@ -105,11 +121,13 @@ class AuthService @Inject constructor(private val firebaseAuth: FirebaseAuth) {
     fun isUserLogged(): Boolean {
         return getCurrentUser() != null
     }
+
+
     fun logOut() {
         firebaseAuth.signOut()
     }
 
-    private fun getCurrentUser() = firebaseAuth.currentUser
+    fun getCurrentUser() = firebaseAuth.currentUser
     /*** GOOGLE ***/
 
     suspend fun signInWithGoogle(idToken: String) {

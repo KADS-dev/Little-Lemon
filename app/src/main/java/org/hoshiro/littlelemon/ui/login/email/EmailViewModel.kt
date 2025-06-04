@@ -11,12 +11,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import kotlin.toString
 
 @HiltViewModel
 class EmailViewModel @Inject constructor() : ViewModel() {
-    var email by mutableStateOf("")
+    var email by mutableStateOf("kalilinuxpruebas@hotmail.com")
         private set
     var showPassword by mutableStateOf(false)
+        private set
+    var passwordHasErrors by mutableStateOf(true)
         private set
 
 
@@ -34,19 +37,51 @@ class EmailViewModel @Inject constructor() : ViewModel() {
             false
         }
     }
+//    val passwordHasErrors by derivedStateOf {
+//
+//        if (password.value.length < 6) {
+//            true
+//        } else {
+//            false
+//        }
+//
+//    }
+
+    fun checkIPasswordHasErrors(){
+        passwordHasErrors = (password.value.toString().length < 6)
+    }
 
     fun updateEmail(input: String) {
         email = input
-        updateFormComplete(password.value.isNotEmpty() && email.isNotEmpty() && !emailHasErrors)
-        Log.i("STATE", "is email valid EMAIL: " + emailHasErrors.toString())
+        updateFormComplete(
+            password.value.isNotEmpty()
+                    && email.isNotEmpty()
+                    && !emailHasErrors
+                    && !passwordHasErrors
+        )
+
+        checkIPasswordHasErrors()
+
+        Log.i("STATE", "is email invalid (EMAIL): " + emailHasErrors.toString())
+        Log.i("STATE", "password has errors (EMAIL): " + passwordHasErrors.toString())
+
     }
 
     fun updatePassword(input: String): TextFieldState  {
         _password.value = input
 
-        updateFormComplete(password.value.isNotEmpty() && email.isNotEmpty() && !emailHasErrors)
+        checkIPasswordHasErrors()
+
+        updateFormComplete(
+            password.value.isNotEmpty()
+                && email.isNotEmpty()
+                    && !emailHasErrors
+                        && !passwordHasErrors
+        )
+        Log.i("STATE", "is email valid (PASSWORD): " + emailHasErrors.toString())
+        Log.i("STATE", "password has errors (PASSWORD): " + passwordHasErrors.toString())
+        Log.i("STATE", "password length (PASSWORD): " + password.value.toString().length)
         return TextFieldState(password.value)
-        Log.i("STATE", "is email valid PASSWORD: " + emailHasErrors.toString())
 
 
     }
