@@ -127,7 +127,7 @@ class AuthService @Inject constructor(private val firebaseAuth: FirebaseAuth) {
         firebaseAuth.signOut()
     }
 
-    fun getCurrentUser() = firebaseAuth.currentUser
+    fun getCurrentUser() = firebaseAuth.currentUser?.email
     /*** GOOGLE ***/
 
     suspend fun signInWithGoogle(idToken: String) {

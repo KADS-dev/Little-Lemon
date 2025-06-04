@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +33,13 @@ fun UserConfigurationScreen(
     onNavigateToHome: () -> Unit,
 
 ) {
+    LaunchedEffect(true) {
+        userConfigurationViewModel.getUserID()
+    }
     Column(modifier.fillMaxSize().padding(6.dp)) {
+
+        val userID = userConfigurationViewModel.user.collectAsState()
+
 //        TopAppBar(
 //            modifier = Modifier,
 //            title = {"User Configuration"},
@@ -49,9 +57,11 @@ fun UserConfigurationScreen(
         IconButton(
             onClick = {
                 userConfigurationViewModel
-                    .logOut(onNavigateToLogin = {onNavigateToHome()} )
+                    .navigateToHome(onNavigateToHome = onNavigateToHome )
             }
         ) {
+
+
             Icon(
                 rememberVectorPainter(image = Icons.AutoMirrored.Filled.ArrowBack),
                 contentDescription = "Localized description",
@@ -60,6 +70,8 @@ fun UserConfigurationScreen(
 
         }
         Box(Modifier.size(256.dp).align(Alignment.CenterHorizontally). background(Color.Yellow))
+
+        Text(text = userID.value, modifier= Modifier.align(alignment = Alignment.CenterHorizontally))
 
         Button(
             onClick = {

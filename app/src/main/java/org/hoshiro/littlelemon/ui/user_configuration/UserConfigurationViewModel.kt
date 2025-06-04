@@ -32,4 +32,9 @@ class UserConfigurationViewModel @Inject constructor(private val authService: Au
         }
         onNavigateToLogin()
     }
+
+    fun navigateToHome(onNavigateToHome: () -> Unit) {
+        onNavigateToHome()
+    }
+
 }
