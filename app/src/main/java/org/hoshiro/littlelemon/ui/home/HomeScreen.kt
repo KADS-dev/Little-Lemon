@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -46,6 +47,7 @@ import coil3.compose.AsyncImage
 import org.hoshiro.littlelemon.R
 import org.hoshiro.littlelemon.data.ofline.MenuItemRoom
 import org.hoshiro.littlelemon.ui.core.Routes
+import org.hoshiro.littlelemon.ui.theme.LightYellow
 
 @Composable
 fun HomeScreen(
@@ -64,14 +66,7 @@ fun HomeScreen(
             HeaderHomeScreen(onNavigateToUserConfiguration = onNavigateToUserConfiguration)
 
         }
-        item {
-            Box(modifier= Modifier
-                .background(color = Color.Yellow)
-                .padding(16.dp)
-                .fillMaxSize()
-                .size(250.dp)
-            )
-        }
+
         item {
             CategorySelectionRow(
                 categories = categories,
@@ -97,7 +92,9 @@ fun HomeScreen(
         }else{
             item {
                 Text(
+//                    modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
                     "Menu",
+//                    style = MaterialTheme.typography.titleMedium,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 8.dp)
                 )
@@ -109,9 +106,7 @@ fun HomeScreen(
                 MenuItemRow(menuItem = menuItem)
             }
         }
-        item{
 
-        }
     }
 
 }
@@ -128,18 +123,47 @@ fun HeaderHomeScreen(
 
         Button(
             onClick = onNavigateToUserConfiguration,
-            modifier= Modifier.align(Alignment.End)
+            modifier= Modifier.align(Alignment.End).padding(end = 16.dp, bottom = 16.dp, top = 8.dp)
         ) { Text("User Configuration") }
-        Box(modifier.size(256.dp)) {
-                Image(
-                    painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "Logo",
-                    contentScale = ContentScale.Inside
-                )
+
+        Box(Modifier.align(Alignment.CenterHorizontally)) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.logo_name),
+//                    contentDescription = "Logo",
+//                    contentScale = ContentScale.Inside
+//                )
             }
 
 
-    }
+            Image(
+                modifier = Modifier.fillMaxSize().padding(horizontal = 128.dp)
+                .border(1.dp, color = Color.Black, androidx.compose.foundation.shape.RoundedCornerShape(20.dp))
+                    .clip(shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp))
+                ,
+
+                alignment = Alignment.Center,
+                painter = painterResource(id = R.drawable.restaurant_info),
+                contentDescription = "Restaurant description",
+
+                contentScale = ContentScale.FillWidth
+
+            )
+
+
+}
+
+
+
+//    Column( modifier = Modifier.fillMaxWidth()
+//
+//    ){
+//        Image(
+//            modifier = Modifier.align(Alignment.CenterHorizontally),
+//            painter = painterResource(id = R.drawable.logo_lemon),
+//            contentDescription = "Logo",
+//            contentScale = ContentScale.Inside
+//        )
+//    }
 }
 
 
@@ -155,7 +179,9 @@ fun CategorySelectionRow(
         .padding(horizontal = 8.dp)) {
         Text(
             "Categories",
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.headlineSmall,
+
+            //  style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
         )
         LazyRow(

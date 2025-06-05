@@ -1,5 +1,6 @@
 package org.hoshiro.littlelemon.ui.user_configuration
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,8 +22,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import org.hoshiro.littlelemon.ui.theme.LightYellow
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import org.hoshiro.littlelemon.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,20 +47,6 @@ fun UserConfigurationScreen(
 
         val userID = userConfigurationViewModel.user.collectAsState()
 
-//        TopAppBar(
-//            modifier = Modifier,
-//            title = {"User Configuration"},
-//            navigationIcon = {Icons.AutoMirrored.Filled.ArrowBack},
-//            actions = {},
-//            //expandedHeight = ,
-//            colors = TopAppBarColors(
-//                containerColor = Color.Gray,
-//                scrolledContainerColor = Color.Gray,
-//                navigationIconContentColor = Color.Gray,
-//                titleContentColor = Color.Yellow,
-//                actionIconContentColor = Color.Gray
-//            ),
-//        )
         IconButton(
             onClick = {
                 userConfigurationViewModel
@@ -69,9 +62,35 @@ fun UserConfigurationScreen(
             )
 
         }
-        Box(Modifier.size(256.dp).align(Alignment.CenterHorizontally). background(Color.Yellow))
+        Box(
+            Modifier
+                .size(256.dp)
+                .align(Alignment.CenterHorizontally)
+                .background(color=LightYellow),
+            contentAlignment = Alignment.Center
 
-        Text(text = userID.value, modifier= Modifier.align(alignment = Alignment.CenterHorizontally))
+        ){
+            Column( modifier = Modifier.fillMaxWidth()
+            ){
+                Image(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                    ,
+                    alignment = Alignment.Center,
+                    painter = painterResource(id = R.drawable.lemon_pp),
+                    contentDescription = "Profile Picture",
+                    contentScale = ContentScale.Inside
+                )
+            }
+        }
+
+        Text(
+            text = "USER: " +  userID.value,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            modifier= Modifier.padding(16.dp)
+                .align(alignment = Alignment.CenterHorizontally)
+        )
 
         Button(
             onClick = {

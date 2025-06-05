@@ -2,6 +2,8 @@ package org.hoshiro.littlelemon.ui.login
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.foundation.Image
+import org.hoshiro.littlelemon.ui.theme.LightYellow
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,8 +27,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,8 +55,24 @@ fun LoginScreen (
         loginViewModel.isLogged(onNavigateToHome)
     }
 
-    Column(modifier = modifier.fillMaxSize()) {
-        Box(modifier.background(Color.Yellow).fillMaxWidth().weight(10f))
+
+        Column( modifier = modifier.fillMaxSize()
+
+        ){
+            Image(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                painter = painterResource(id = R.drawable.logo_lemon),
+                contentDescription = "Logo",
+                contentScale = ContentScale.Inside,
+            )
+            Image(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                painter = painterResource(id = R.drawable.logo_name),
+                contentDescription = "Logo",
+                contentScale = ContentScale.Inside,
+            )
+
+
 
         EmailForm(loginViewModel, onNavigateToHome = onNavigateToHome)
 
@@ -76,6 +97,10 @@ fun EmailForm(
             validatorHasErrors = emailViewModel.emailHasErrors,
             //updateFinalEmailValueState = {input -> emailViewModel.updateFinalEmailValueState(input)},
         )
+        Text(
+            text = "The password must contain at least 6 characters.",
+            fontWeight = FontWeight.Light
+            )
 
         PasswordTextField(
             showPassword = emailViewModel.showPassword,

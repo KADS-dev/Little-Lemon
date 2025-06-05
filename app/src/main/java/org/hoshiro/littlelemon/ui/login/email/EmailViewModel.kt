@@ -15,7 +15,8 @@ import kotlin.toString
 
 @HiltViewModel
 class EmailViewModel @Inject constructor() : ViewModel() {
-    var email by mutableStateOf("kalilinuxpruebas@hotmail.com")
+    //var email by mutableStateOf("tests@hotmail.com")
+    var email by mutableStateOf("")
         private set
     var showPassword by mutableStateOf(false)
         private set
