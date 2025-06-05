@@ -67,7 +67,8 @@ dependencies {
 
 
     //Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    //implementation ("androidx.core:core-ktx:1.15.0")
 
     //Navigation
     implementation ("androidx.navigation:navigation-compose:2.8.2")
@@ -79,6 +80,21 @@ dependencies {
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
+    //Ktor
+    implementation ("io.ktor:ktor-client-android:2.1.3")
+    implementation ("io.ktor:ktor-client-content-negotiation:2.1.3")
+    implementation ("io.ktor:ktor-serialization-kotlinx-json:2.1.3")
+
+    //Room
+    implementation ("androidx.room:room-runtime:2.7.1")
+    kapt ("androidx.room:room-compiler:2.7.1")
+
+    //Glide
+    //implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //Coil
+    implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.hoshiro.littlelemon.R
-import org.hoshiro.littlelemon.data.AuthService
+import org.hoshiro.littlelemon.data.online.AuthService
 import javax.inject.Inject
 
 @HiltViewModel
@@ -66,7 +66,7 @@ class LoginViewModel @Inject constructor(private val authService: AuthService): 
 
             val result = CredentialManager.create(context).getCredential(
                 request = request,
-                context = context
+                context = context,
             )
 
             onSignInWithGoogle(credential = result.credential, onNavigateToHome = onNavigateToHome)

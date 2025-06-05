@@ -1,17 +1,13 @@
 package org.hoshiro.littlelemon.ui.user_configuration
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.hoshiro.littlelemon.data.AuthService
+import org.hoshiro.littlelemon.data.online.AuthService
 import javax.inject.Inject
 
 @HiltViewModel

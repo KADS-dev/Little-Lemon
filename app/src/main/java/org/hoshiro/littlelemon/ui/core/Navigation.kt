@@ -59,7 +59,7 @@ fun ContentWrapper(
         composable <Routes.UserConfigurationScreen>{
             UserConfigurationScreen(
                 modifier = modifier,
-                userConfigurationViewModel = userConfigurationViewModel ,
+                userConfigurationViewModel = userConfigurationViewModel,
                 onNavigateToLogin = {
                     navigationController.navigate(Routes.LoginScreen){
                         popUpTo(route = Routes.UserConfigurationScreen){ inclusive = true }
