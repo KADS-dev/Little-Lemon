@@ -2,6 +2,7 @@ package org.hoshiro.littlelemon.ui.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -62,7 +63,13 @@ fun ContentWrapper(
                 userConfigurationViewModel = userConfigurationViewModel,
                 onNavigateToLogin = {
                     navigationController.navigate(Routes.LoginScreen){
-                        popUpTo(route = Routes.UserConfigurationScreen){ inclusive = true }
+                        popUpTo(route = Routes.HomeScreen) {
+                            inclusive = true // Pop the start destination itself
+                            // saveState = false // Optional: Don't save state of popped screens
+                        }
+                        launchSingleTop = true // Ensure LoginScreen is single top
+                    // popUpTo(route = Routes.UserConfigurationScreen){ inclusive = true }
+
                     }
                 },
                 onNavigateToHome = {
